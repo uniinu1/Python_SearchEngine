@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>검색 엔진</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='./css/style.css') }}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
+{#    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"></script>#}
+    <script>
+    $(document).ready(function() {
+        $("#search-input").on("input", function() {
+            var query = $(this).val();
+            if (query.length >= 1) {
+                $.ajax({
+                    url: "/autocomplete?q=" + query,
+                    type: "GET",
+                    success: function(data) {
+                        $("#autocomplete-list").empty();
+                        $.each(data.matching_results, function(i, val) {
+                            $("#autocomplete-list").append("<li><a href='#'>" + val + "</a></li>");
+                        });
+                    }
+                });
+            } else {
+                $("#autocomplete-list").empty();
+            }
+        });
+    });
+    </script>
+</head>
+<body>
+    <div class="search-box">
+        <input type="text" id="search-input" name="query" placeholder="검색..." autocomplete="off">
+        <button type="submit" id="search-btn"><img src="{{ url_for('static', filename='img/search.svg') }}" alt="Search Icon"></button>
+        <ul id="autocomplete-list"></ul>
+    </div>
+<div>
+
+</div>
+</body>
+</html>
