@@ -11,13 +11,12 @@ keywords = {
 
 for prefix, words in keywords.items():
     for word in words:
-        # Sorted Set
         # 각 단어를 prefix를 키로 사용하여 저장
         r.zadd(f'autocomplete:{prefix}', {word: 0})
 
 #FLUSHDB : 데이터 모두 삭제
 # 키워드별 가중치 부여
-#ZRANGE autocomplete:교차 0 - 1 WITHSCORES
-r.zadd('autocomplete:교차', {'울산교차로': 1})
-r.zadd('autocomplete:교차', {'제주교차로': 2})
-r.zadd('autocomplete:교차', {'부산교차로': 3})
+#ZRANGE autocomplete:교차 0 -1 WITHSCORES
+# r.zadd('autocomplete:교차', {'울산교차로': 1})
+# r.zadd('autocomplete:교차', {'제주교차로': 2})
+# r.zadd('autocomplete:교차', {'부산교차로': 3})
